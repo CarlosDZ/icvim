@@ -1,0 +1,22 @@
+-- Cargar Lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("config.highlights")
+require("lazy").setup(require("plugins"))
+
+require("config.options")
+require("config.keymaps")
+require("config.cursor")
+require("config.pairing")
+
+

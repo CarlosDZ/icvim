@@ -1,0 +1,36 @@
+🧠 Navegación
+gg           → Ir al inicio del archivo
+G            → Ir al final del archivo
+H / M / L    → Ir al inicio / medio / final de la pantalla
+Ctrl-d / Ctrl-u → Bajar / subir media pantalla
+zz           → Centrar la línea actual
+:noh         → Quitar resaltado de búsqueda
+
+✍️ Edición
+i / a / I / A → Insertar texto (inicio, final, línea)
+o / O         → Nueva línea abajo / arriba
+x / dd / yy   → Cortar / borrar / copiar línea
+p / P         → Pegar debajo / encima
+u / Ctrl-r    → Deshacer / rehacer
+.             → Repetir última acción
+:w / :q       → Guardar / salir
+:wq / :qa     → Guardar y salir / cerrar todo
+
+🔍 Búsqueda y reemplazo
+/texto        → Buscar hacia abajo
+?texto        → Buscar hacia arriba
+n / N         → Siguiente / anterior coincidencia
+:%s/viejo/nuevo/g → Reemplazar en todo el archivo
+:g/patron/d   → Borrar líneas que coincidan con patrón
+
+🧩 Ventanas y splits
+:vsplit archivo → Split vertical
+:split archivo  → Split horizontal
+Ctrl-w h/j/k/l  → Mover entre ventanas
+Ctrl-w q        → Cerrar ventana actual
+:wincmd L       → Mover ventana al extremo derecho
+
+📂 Telescope
+<leader>ff    → Buscar archivos
+<leader>fg    → Buscar texto en archivos
+:Telescope keymaps   → Buscar atajos
