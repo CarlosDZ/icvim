@@ -3,6 +3,7 @@ return {
   require("plugins.indent"),
   require("plugins.cmp"),
   require("plugins.lsp"),
+  require("plugins.emmet"),
   require("plugins.luasnip"),
   { "tpope/vim-sensible" },
   { "nvim-treesitter/nvim-treesitter" },

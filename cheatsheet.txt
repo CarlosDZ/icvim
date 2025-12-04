@@ -34,3 +34,6 @@ Ctrl-w q        → Cerrar ventana actual
 <leader>ff    → Buscar archivos
 <leader>fg    → Buscar texto en archivos
 :Telescope keymaps   → Buscar atajos
+
+    Emmet (marcas)
+Ctrl-y , => Expande argumento emmet 

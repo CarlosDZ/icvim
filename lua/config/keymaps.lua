@@ -39,4 +39,11 @@ vim.keymap.set("n", "<leader>ch", function()
   end
 end, { desc = "Toggle cheatsheet" })
 
+-- Mover línea arriba/abajo en modo Normal
+vim.keymap.set("n", "<A-Up>", ":m .-2<CR>==", { silent = true })
+vim.keymap.set("n", "<A-Down>", ":m .+1<CR>==", { silent = true })
+
+-- Mover bloque seleccionado en modo Visual
+vim.keymap.set("v", "<A-Up>", ":m '<-2<CR>gv=gv", { silent = true })
+vim.keymap.set("v", "<A-Down>", ":m '>+1<CR>gv=gv", { silent = true })
 
