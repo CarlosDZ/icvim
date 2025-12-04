@@ -11,8 +11,3 @@ npairs.add_rules({
   Rule("[", "]"),
   Rule("{", "}"),
 })
-
--- Reglas HTML
-npairs.add_rules({
-  Rule("<", ">", "html")
-})

@@ -5,8 +5,11 @@ return {
   require("plugins.lsp"),
   require("plugins.emmet"),
   require("plugins.luasnip"),
+  require("plugins.autopairs"),
+  require("plugins.autotag"),
+  require("plugins.prettier"),
+  require("plugins.treesitter"),
   { "tpope/vim-sensible" },
-  { "nvim-treesitter/nvim-treesitter" },
   { "hrsh7th/nvim-cmp" },
   { "neovim/nvim-lspconfig" },
   { "L3MON4D3/LuaSnip" },
@@ -30,13 +33,6 @@ return {
           component_separators = { "", "" },
         },
       }
-    end,
-  },
-
-  {
-    "windwp/nvim-autopairs",
-    config = function()
-      require("nvim-autopairs").setup {}
     end,
   },
 
