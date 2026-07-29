@@ -1,20 +1,22 @@
-vim.opt.guicursor = "n:ver25-blinkon300-blinkoff300-blinkwait500,i:ver25-blinkon300-blinkoff300-blinkwait500,v:ver25-blinkon300-blinkoff300-blinkwait500"
+local colors = {
+  normal = "#ffffff",
+  insert = "#ffcc00",
+  visual = "#00ccff",
+}
 
-vim.api.nvim_create_autocmd("ModeChanged", {
-  callback = function()
-    local mode = vim.fn.mode()
-    local file = vim.fn.expand("~/.config/kitty/cursor-normal.conf")
+local function define_cursor_hl()
+  vim.api.nvim_set_hl(0, "CursorNormal", { bg = colors.normal })
+  vim.api.nvim_set_hl(0, "CursorInsert", { bg = colors.insert })
+  vim.api.nvim_set_hl(0, "CursorVisual", { bg = colors.visual })
+end
 
-    if mode == "i" then
-      file = vim.fn.expand("~/.config/kitty/cursor-insert.conf")
-    elseif mode == "v" or mode == "V" or mode == "\22" then
-      file = vim.fn.expand("~/.config/kitty/cursor-visual.conf")
-    end
+define_cursor_hl()
+-- Cursor redefinition after colorscheme loads.
+vim.api.nvim_create_autocmd("ColorScheme", { callback = define_cursor_hl })
 
-    local socket = vim.fn.getenv("KITTY_LISTEN_ON")
-    if socket and socket ~= "" then
-      local cmd = string.format("kitty @ --to '%s' set-colors --all '%s'", socket, file)
-      os.execute(cmd)
-    end
-  end
-})
+local blink = "blinkwait500-blinkon300-blinkoff300"
+vim.opt.guicursor = table.concat({
+  "n-c:ver25-CursorNormal-" .. blink,
+  "i:ver25-CursorInsert-" .. blink,
+  "v:ver25-CursorVisual-" .. blink,
+}, ",")
