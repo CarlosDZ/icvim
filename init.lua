@@ -13,10 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("config.highlights")
 require("lazy").setup(require("plugins"))
-
 require("config.options")
 require("config.keymaps")
 require("config.cursor")
-require("config.pairing")
-
+require("config.autocmds")
 

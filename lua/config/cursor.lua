@@ -5,9 +5,9 @@ local colors = {
 }
 
 local function define_cursor_hl()
-  vim.api.nvim_set_hl(0, "CursorNormal", { bg = colors.normal })
-  vim.api.nvim_set_hl(0, "CursorInsert", { bg = colors.insert })
-  vim.api.nvim_set_hl(0, "CursorVisual", { bg = colors.visual })
+  vim.api.nvim_set_hl(0, "CursorNormal", { bg = "#ffffff", fg = "#000000" })
+  vim.api.nvim_set_hl(0, "CursorInsert", { bg = "#ffcc00", fg = "#000000" })
+  vim.api.nvim_set_hl(0, "CursorVisual", { bg = "#00ccff", fg = "#000000" })
 end
 
 define_cursor_hl()
@@ -16,7 +16,6 @@ vim.api.nvim_create_autocmd("ColorScheme", { callback = define_cursor_hl })
 
 local blink = "blinkwait500-blinkon300-blinkoff300"
 vim.opt.guicursor = table.concat({
-  "n-c:ver25-CursorNormal-" .. blink,
+  "n-v-c:block-CursorNormal-" .. blink,
   "i:ver25-CursorInsert-" .. blink,
-  "v:ver25-CursorVisual-" .. blink,
 }, ",")

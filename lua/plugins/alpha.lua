@@ -32,18 +32,19 @@ return {
 "⠀⠀⠀⠀⠀⠀⠀⠀⠣⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠄⠀⠀⠀⠀⠀⠀⠀⠳⣄⠒⠒⢉⣠⠔⠁⠀⠀⢪⠢⣄⣀⣤⠤⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⠋⠀⠀⠀⠀⠀⠀⠀",
 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠢⢀⠀⠀⠀⠀⠀⠀⠀⠡⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠈⠉⠀⠀⠀⠀⠀⢘⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡿⡇⠀⠀⠀⠀⠀⠀"
 }
-    dashboard.section.buttons.val = {
-      dashboard.button("e", "📄  Nuevo archivo", ":ene <BAR> startinsert <CR>"),
-      dashboard.button("f", "🔍  Buscar archivo", ":Telescope file_browser<CR>"),
-      dashboard.button("r", "🕘  Recientes", ":Telescope oldfiles<CR>"),
-      dashboard.button("c", "⚙️  Configuración", ":lua require('telescope.builtin').find_files({ cwd = vim.fn.stdpath('config') })<CR>"), 
-      dashboard.button("q", "❌  Salir", ":qa<CR>"),
-    }
+    
+    -- Button section
+    local buttons = {}
+    for _, b in ipairs(require("config.keymaps").alpha) do
+      table.insert(buttons, dashboard.button(b[1], b[2], b[3]))
+    end
+    dashboard.section.buttons.val = buttons
 
+    -- Footer 
     dashboard.section.footer.val = {
       "This Nvim build has been created by Snowl",
       "",
-      "                🕒 " .. os.date("%H:%M") .. "           "
+      "                 " .. os.date("%H:%M") .. "           "
     }
 
     alpha.setup(dashboard.config)

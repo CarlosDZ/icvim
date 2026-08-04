@@ -1,25 +1,31 @@
 return {
-  require("plugins.alpha"),
   require("plugins.indent"),
-  require("plugins.cmp"),
+  require("plugins.blink"),
   require("plugins.lsp"),
-  require("plugins.emmet"),
+  require("plugins.telescope"),
+  require("plugins.alpha"),
   require("plugins.luasnip"),
   require("plugins.autopairs"),
-  require("plugins.autotag"),
   require("plugins.prettier"),
-  require("plugins.treesitter"),
-  { "tpope/vim-sensible" },
-  { "hrsh7th/nvim-cmp" },
-  { "neovim/nvim-lspconfig" },
-  { "L3MON4D3/LuaSnip" },
-  { "gruvbox-community/gruvbox" },
-  { "hrsh7th/nvim-cmp" },
-  {
+  require("plugins.bufferline"),
+ {
     "kyazdani42/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require("nvim-tree").setup {}
+      require("nvim-tree").setup {
+        on_attach = require("config.keymaps").nvim_tree,
+        view = {
+          width = { min = 25, max = 50, padding = 2 },
+        },
+        update_focused_file = {
+          enable = true,
+          update_root = false,
+        },
+        reload_on_bufenter = true,
+        filesystem_watchers = {
+          enable = false,
+        },
+      }
     end,
   },
 
@@ -36,23 +42,6 @@ return {
     end,
   },
 
-  {
-  "nvim-telescope/telescope.nvim",
-  branch = "0.1.x",
-  dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
-  config = function()
-    require("telescope").setup {}
-    pcall(require("telescope").load_extension, "file_browser")
-  end,
-  },
-
-
   { "lewis6991/gitsigns.nvim" },
 
-  {
-    "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-    },
-  }
 }

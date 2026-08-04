@@ -1,8 +1,16 @@
-vim.cmd([[
-  highlight IndentScope1 guifg=#d75f5f gui=nocombine
-  highlight IndentScope2 guifg=#afaf00 gui=nocombine
-  highlight IndentScope3 guifg=#5fafd7 gui=nocombine
-  highlight IndentScope4 guifg=#87af5f gui=nocombine
-  highlight IndentScope5 guifg=#d787af gui=nocombine
-]])
+local colors = {
+  IndentScope1 = "#d75f5f",
+  IndentScope2 = "#afaf00",
+  IndentScope3 = "#5fafd7",
+  IndentScope4 = "#87af5f",
+  IndentScope5 = "#d787af",
+}
 
+local function apply()
+  for group, fg in pairs(colors) do
+    vim.api.nvim_set_hl(0, group, { fg = fg, nocombine = true })
+  end
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", { callback = apply })
+apply()
