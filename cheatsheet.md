@@ -6,9 +6,9 @@ Leader: `Space`  ·  LocalLeader: `\`
 
     A-k / A-j     Move line up / down
     A-h / A-l     Unindent / indent
-                  (works in n, i, v)
+                  (n, i and v modes)
 
-    d D x X       Delete (never yanks)
+    d D x X       Delete, never yanks
     <leader>x     Cut (operator)
     <leader>xx    Cut line
     p  (visual)   Paste, keep register
@@ -20,7 +20,6 @@ Leader: `Space`  ·  LocalLeader: `\`
     C-d / C-u     Half page, centered
     n / N         Search result, centered
     C-o / C-i     Jumplist back / forward
-    Tab           Alternate buffer
 
 ## WINDOWS
 
@@ -33,10 +32,10 @@ Leader: `Space`  ·  LocalLeader: `\`
 
 ## BUFFERS
 
-    A-1 .. A-0    Go to buffer 1..10
     Tab           Alternate buffer
+    A-1 .. A-0    Go to buffer 1..10
     A-BS          Close buffer
-    :W            Write + close buffer
+    :W            Write and close buffer
 
 ## EXPLORER
 
@@ -45,11 +44,11 @@ Leader: `Space`  ·  LocalLeader: `\`
 
   Inside the tree:
 
-    CR            Open (auto: editor/system)
+    CR / l        Open (auto: editor or system)
     \             Preview
     i / -         Open in vsplit / split
     s / S         Force system / editor
-    BS            Close directory
+    h / BS        Close directory
     [ / ]         Root up / down
     a d r         Create, delete, rename
     x c p         Cut, copy, paste
@@ -80,7 +79,8 @@ Leader: `Space`  ·  LocalLeader: `\`
     gra           Code action
     <leader>lf    Format buffer
 
-  Format runs automatically on save.
+  Format also runs on save.
+  Signature help pops up on ( and ,
 
 ## DIAGNOSTICS
 
@@ -88,6 +88,19 @@ Leader: `Space`  ·  LocalLeader: `\`
     <leader>ql    List all
     <leader>qv    Toggle virtual text
     [d / ]d       Previous / next error
+
+  Gutter: x error, ! warn, i info, ? hint
+  Jumps only stop on errors.
+
+## GIT
+
+    ]c / [c       Next / previous hunk
+    <leader>gp    Preview hunk
+    <leader>gb    Blame line (full)
+    <leader>gt    Toggle inline blame
+
+  Tree colors: green new, yellow dirty,
+  cyan staged, red deleted, grey ignored.
 
 ## COMPLETION (insert)
 
@@ -118,9 +131,14 @@ Leader: `Space`  ·  LocalLeader: `\`
     c             Configuration
     q             Quit
 
+## COMMANDS
+
+    :W            Write and close buffer
+    :ThemeReload  Reapply theme from palette
+
 ## MISC
 
     <leader>ch    Toggle this cheatsheet
 
-  Search highlight clears automatically
-  on any key that is not n N * # /
+  Search highlight clears itself on any
+  key that is not n N * # /

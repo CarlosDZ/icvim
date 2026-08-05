@@ -9,6 +9,3 @@ vim.bo.cindent = true
 
 -- Comments
 vim.bo.commentstring = "// %s"
-
--- Column guide
-vim.wo.colorcolumn = "80"

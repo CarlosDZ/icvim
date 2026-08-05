@@ -21,9 +21,17 @@ vim.opt.undofile = true
 vim.opt.updatetime = 250
 
 vim.diagnostic.config({
-  virtual_text = { spacing = 2, prefix = "●" },
+  virtual_text = { spacing = 3, prefix = "-" },
   severity_sort = true,
   float = { border = "rounded", source = true },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "x",
+      [vim.diagnostic.severity.WARN]  = "!",
+      [vim.diagnostic.severity.INFO]  = "i",
+      [vim.diagnostic.severity.HINT]  = "?",
+    },
+  },
 })
 
 

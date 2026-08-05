@@ -6,6 +6,3 @@ vim.bo.softtabstop = 2
 
 -- Comments
 vim.bo.commentstring = "-- %s"
-
--- Column guide
-vim.wo.colorcolumn = "100"

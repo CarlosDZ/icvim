@@ -1,0 +1,60 @@
+post_install() {
+	cat <<-EOF
+
+	  icVim installed.
+
+	  Run it with:
+
+	      icvim
+
+	  It uses NVIM_APPNAME, so it lives alongside your existing Neovim
+	  configuration and does not touch ~/.config/nvim.
+
+	  On first launch, lazy.nvim bootstraps and installs plugins into
+	  ~/.local/share/icvim. That takes a moment.
+
+	  TERMINAL SETUP
+
+	  This config is designed for kitty. Add to kitty.conf:
+
+	      symbol_map U+E000-U+F8FF,U+F0000-U+FFFFD,U+100000-U+10FFFD Symbols Nerd Font Mono
+	      symbol_map U+2190-U+21FF,U+2500-U+259F,U+25A0-U+25FF Symbols Nerd Font Mono
+
+	  Without it, icons are resolved by fontconfig fallback and may not
+	  align. Some keybindings also need the kitty keyboard protocol; see
+	  /usr/share/doc/icvim-git/README.md.
+
+	  NOTES
+
+	  The config is a symlink to /usr/share/icvim and is therefore
+	  read-only, updated through pacman. To modify it, clone the repository
+	  and point ~/.config/icvim at your copy instead:
+
+	      rm ~/.config/icvim
+	      git clone https://github.com/CarlosDZ/icvim ~/.config/icvim
+
+	  On X11, edit the clipboard provider in lua/config/options.lua — it is
+	  pinned to wl-clipboard.
+
+	EOF
+}
+
+post_upgrade() {
+	cat <<-EOF
+
+	  icVim upgraded. Run :Lazy sync inside icvim to match the new lockfile.
+
+	EOF
+}
+
+post_remove() {
+	cat <<-EOF
+
+	  Leftovers not removed by pacman:
+
+	      ~/.config/icvim          (symlink)
+	      ~/.local/share/icvim     (plugins)
+	      ~/.local/state/icvim     (undo, swap, logs)
+
+	EOF
+}

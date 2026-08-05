@@ -1,0 +1,48 @@
+return {
+  normal =            "#ffffff",
+  insert =            "#ffcc00",
+  visual =            "#00ccff",
+  
+  bg =                "#0e0718",
+  bg_prompt =         "#2c1d4d",
+  panels_bg =         "#241740",
+  
+  indent_scope_1 =    "#d75f5f",
+  indent_scope_2 =    "#afaf00",
+  indent_scope_3 =    "#5fafd7",
+  indent_scope_4 =    "#87af5f",
+  indent_scope_5 =    "#d787af",
+  
+  plaintext =         "#e8e4f0",
+  comments =          "#6e6e6e",
+  vars =              "#ffe066",
+  functions =         "#68b93a",
+  keywords =          "#c9a0ff",
+  types =             "#7db8e8",
+  strings =           "#ff9e8a",
+  numbers =           "#e88ad8",
+  members =           "#a0c8e0",
+  parameters =        "#ffe9b3",
+  operators =         "#a89ab8",
+  punctuation =       "#8a7d9a",
+  preproc =           "#a878d8",
+  boolean =           "#00ccff",
+  doc_comments =      "#8a8a9e",
+  macros =            "#d8a0ff",
+  typedefs =          "#a0d8e8",
+
+  error =             "#d75f5f",
+  warning =           "#ffb380",
+  hints =             "#f2ef7d",
+  info =              "#9090a0",
+  
+  search =            "#3d2f52",
+  search_current =    "#00ccff",
+
+  bg_line =           "#170e28",
+  border =            "#4a3a6b",
+  line_nr =           "#4a4458",
+  line_nr_active =    "#c9a0ff",
+  selection =         "#3a2a5c",
+  bg_bar =            "#070310",
+}

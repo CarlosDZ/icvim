@@ -15,11 +15,12 @@ depends=(
 	'wl-clipboard'
 	'clang'
 	'lua-language-server'
+	'ttf-nerd-fonts-symbols-mono'
 )
 optdepends=(
 	'typescript-language-server: TypeScript support'
 	'prettier: web formatting'
-	'ttf-jetbrains-mono-nerd: icons in tree, tabline and statusline'
+	'kitty: keyboard protocol and font mapping this config assumes'
 	'xclip: clipboard on X11 (requires editing options.lua)'
 )
 makedepends=('git')
@@ -42,15 +43,19 @@ package() {
 	local sharedir="$pkgdir/usr/share/$_pkgname"
 	install -dm755 "$sharedir"
 
-	# Config tree. Everything the runtime needs, nothing else.
-	install -Dm644 init.lua "$sharedir/init.lua"
-	install -Dm644 lazy-lock.json "$sharedir/lazy-lock.json"
-	install -Dm644 cheatsheet.md "$sharedir/cheatsheet.md"
+	# Top-level runtime files.
+	install -Dm644 init.lua        "$sharedir/init.lua"
+	install -Dm644 lazy-lock.json  "$sharedir/lazy-lock.json"
+	install -Dm644 cheatsheet.md   "$sharedir/cheatsheet.md"
 
+	# Config tree. Everything under lua/ and ftplugin/.
 	local f
 	while IFS= read -r -d '' f; do
 		install -Dm644 "$f" "$sharedir/$f"
-	done < <(find lua ftplugin -type f -name '*.lua' -print0)
+	done < <(find lua ftplugin -type f -print0)
+
+	# Maintenance helper.
+	install -Dm755 check-palette.sh "$sharedir/check-palette.sh"
 
 	# Launcher. Uses NVIM_APPNAME so it coexists with the user's own
 	# Neovim configuration instead of replacing it.
@@ -69,6 +74,6 @@ package() {
 		NVIM_APPNAME=icvim exec nvim "$@"
 	EOF
 
-	install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+	install -Dm644 LICENSE   "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 	install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
 }

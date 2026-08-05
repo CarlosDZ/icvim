@@ -200,6 +200,8 @@ M.nvim_tree = function(bufnr)
   map("n", "[", api.tree.change_root_to_parent, opts("Go up one directory"))
   map("n", "]", api.tree.change_root_to_node,   opts("Set directory as root"))
   map("n", "<BS>", api.node.navigate.parent_close, opts("Close directory"))
+  map("n", "h", api.node.navigate.parent_close, opts("Close directory"))
+  map("n", "l", smart_open,                     opts("Open"))
 
   map("n", "a", api.fs.create,               opts("Create file or directory"))
   map("n", "d", api.fs.remove,               opts("Delete"))
@@ -242,20 +244,12 @@ M.telescope_file_browser = function(fb, open_dir_or_file)
   }
 end
 
--- ══ vim command line instructions ══════════════════════════════════════════
-vim.api.nvim_create_user_command("W", function()
-  vim.cmd("write")
-  local listed = vim.tbl_filter(function(b)
-    return vim.bo[b].buflisted
-  end, vim.api.nvim_list_bufs())
-  if #listed > 1 then
-    local cur = vim.api.nvim_get_current_buf()
-    vim.cmd("BufferLineCyclePrev")
-    vim.api.nvim_buf_delete(cur, {})
-  else
-    vim.cmd("quit")
-  end
-end, { desc = "Write and close buffer" })
+-- ══ Git ═════════════════════════════════════════════════════════════
+map("n", "]c", ":Gitsigns next_hunk<CR>",    { silent = true, desc = "Next hunk" })
+map("n", "[c", ":Gitsigns prev_hunk<CR>",    { silent = true, desc = "Previous hunk" })
+map("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", { silent = true, desc = "Preview hunk" })
+map("n", "<leader>gb", ":Gitsigns blame_line<CR>",   { silent = true, desc = "Blame line (full)" })
+map("n", "<leader>gt", ":Gitsigns toggle_current_line_blame<CR>", { silent = true, desc = "Toggle inline blame" })
 
 -- IF YOU PUT CODE BELOW THE RETURN M YOUR NVIM CRASHES MY GUY THIS IS THE END OF THE FILE WRITE EVERYTHING THERE ^^^^^^^^^ TYSM FOR THE ATTENTION
 return M 
