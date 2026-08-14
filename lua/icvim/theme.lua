@@ -8,7 +8,7 @@ local function apply()
   local hl = vim.api.nvim_set_hl
 
   -- ══ Base ══════════════════════════════════════════════════════════
-  hl(0, "Normal",      { fg = p.plaintext, bg = p.bg })
+hl(0, "Normal",      { fg = p.plaintext, bg = p.bg })
   hl(0, "NormalFloat", { fg = p.plaintext, bg = p.panels_bg })
   hl(0, "FloatBorder", { bg = p.panels_bg })
   hl(0, "Comment",     { fg = p.comments })
@@ -75,6 +75,11 @@ local function apply()
   hl(0, "@lsp.type.method",       { fg = p.functions })
   hl(0, "@lsp.type.namespace",    { fg = p.types })
   hl(0, "@lsp.type.comment",      {})
+  hl(0, "@lsp.typemod.generic.attribute", { fg = p.preproc })
+  hl(0, "@lsp.mod.attribute",             { fg = p.preproc })
+  hl(0, "@lsp.type.generic",              { fg = p.types })
+  hl(0, "@lsp.typemod.variable.mutable", { fg = p.vars, underline = true })
+  hl(0, "@lsp.mod.unsafe",               { fg = p.error, bold = true })
 
   -- ══ Diagnostics ═══════════════════════════════════════════════════
   hl(0, "DiagnosticError", { fg = p.error })
@@ -192,6 +197,11 @@ local function apply()
   hl(0, "Folded",     { fg = p.comments, bg = p.bg_line })
   hl(0, "FoldColumn", { fg = p.punctuation, bg = p.bg })
 
+  -- ══ RUST ══════════════════════════════════════════════════════════
+  hl(0, "LspInlayHint", { fg = p.comments, bg = p.bg_line })
+  hl(0, "@attribute",   { fg = p.preproc })
+  hl(0, "@lsp.type.lifetime",      { fg = p.macros })
+  hl(0, "@lsp.type.typeParameter", { fg = p.typedefs })
 end
 
 apply()

@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- ══ Treesitter (native parsers) ═════════════════════════════════════
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "c", "lua", "markdown", "vim", "query" },
+  pattern = { "c", "lua", "markdown", "vim", "query", "rust" },
   callback = function()
     pcall(vim.treesitter.start)
   end,

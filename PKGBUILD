@@ -54,6 +54,15 @@ package() {
 		install -Dm644 "$f" "$sharedir/$f"
 	done < <(find lua ftplugin -type f -print0)
 
+    # Tree-sitter queries.
+	while IFS= read -r -d '' f; do
+		install -Dm644 "$f" "$sharedir/$f"
+	done < <(find queries -type f -print0)
+
+	# Parser build tooling.
+	install -Dm644 parsers.txt       "$sharedir/parsers.txt"
+	install -Dm755 build-parsers.sh  "$sharedir/build-parsers.sh"
+
 	# Maintenance helper.
 	install -Dm755 check-palette.sh "$sharedir/check-palette.sh"
 

@@ -193,6 +193,14 @@ main() {
 
 	head "Configuration"
 	link_config
+    
+    head "Parsers"
+	if confirm "Build Tree-sitter parsers now?"; then
+		"$REPO_DIR/build-parsers.sh"
+	else
+		info "Run ./build-parsers.sh later. Without it, only the languages"
+		info "Neovim bundles (c, lua, markdown, vim, query) are highlighted."
+	fi
 
 	head "Done"
 	info "Launch nvim. lazy.nvim will bootstrap and install plugins on"

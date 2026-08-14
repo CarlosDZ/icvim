@@ -56,10 +56,12 @@ Area the file tree, tabline and statusline will render icons as boxes.
 |---|---|---|
 | `clangd`, `clang-format` | C/C++ LSP and formatting | `clang` |
 | `lua-language-server` | Lua LSP | `lua-language-server` |
+| `rust-analyzer` | Rust LSP | via `rustup component add` |
 | `typescript-language-server` | TypeScript LSP | `typescript-language-server` |
 | `prettier` | Web formatting | `prettier` |
 | `rg` | Telescope live grep | `ripgrep` |
 | `wl-copy`, `wl-paste` | System clipboard (Wayland) | `wl-clipboard` |
+| `cc`, `git` | Building Tree-sitter parsers | `base-devel`, `git` |
 | Symbols Nerd Font Mono | Icons | `ttf-nerd-fonts-symbols-mono` |
 
 On Arch:
@@ -77,15 +79,16 @@ clipboard.
 
 ## Install
 
-Clone and link:
+Clone, link and build the parsers:
 
 ```sh
 git clone https://github.com/CarlosDZ/icvim ~/.config/nvim
+cd ~/.config/nvim && ./build-parsers.sh
 nvim
 ```
 
-Or run the installer, which checks dependencies, backs up any existing config
-and links this repository:
+Or run the installer, which checks dependencies, backs up any existing config,
+links this repository and offers to build the parsers:
 
 ```sh
 ./installer_arch_linux.sh
@@ -126,15 +129,53 @@ lazy.nvim bootstraps itself on first launch and installs everything pinned in
 
 ### Language support
 
-LSP servers for **C** (clangd), **Lua** (lua_ls, with the Neovim runtime
-loaded) and **TypeScript** (ts_ls). One file per server in `lua/lsp/`; adding
-another is a new file plus one line in `lua/lsp/init.lua`.
+LSP servers for **C** (clangd), **Rust** (rust-analyzer, with clippy and inlay
+hints), **Lua** (lua_ls, with the Neovim runtime loaded) and **TypeScript**
+(ts_ls). One file per server in `lua/lsp/`; adding another is a new file plus
+one line in `lua/lsp/init.lua`.
 
-Syntax highlighting uses Neovim's **bundled Tree-sitter parsers** (C, Lua,
-Markdown, Vim, Query). `nvim-treesitter` is deliberately absent: its `master`
-branch is archived and broke on Neovim 0.12, taking hover and signature help
-down with it. Web languages fall back to regex highlighting until that gets
-revisited.
+### Syntax highlighting
+
+`nvim-treesitter` is deliberately absent. Its `master` branch was archived and
+broke on Neovim 0.12, taking hover and signature help down with it. Instead:
+
+- Neovim's **bundled parsers** cover C, Lua, Markdown, Vim and Query.
+- Anything else is **built from source**, declared in `parsers.txt` and
+  compiled by `build-parsers.sh`.
+
+The parsers themselves land in `~/.local/share/nvim/site/parser/`, outside the
+repository — they are architecture-specific binaries and have no business in
+git. The highlight queries land in `queries/`, versioned along with everything
+else.
+
+```sh
+./build-parsers.sh              # build everything declared
+./build-parsers.sh rust         # build one
+./build-parsers.sh --force      # rebuild
+./build-parsers.sh --list       # what is declared and installed
+```
+
+### Adding a language
+
+Four steps, each in its own file:
+
+1. **Parser** — add a line to `parsers.txt` and run `./build-parsers.sh <lang>`.
+   The script clones the grammar, compiles it, installs the shared object and
+   copies the highlight queries into `queries/<lang>/`.
+
+2. **Highlighting** — add the filetype to the `FileType` autocmd in
+   `lua/config/autocmds.lua`, which calls `vim.treesitter.start()`.
+
+3. **LSP** — create `lua/lsp/<server>.lua` returning a config table, and add
+   its name to the list in `lua/lsp/init.lua`. Shared capabilities are merged
+   in automatically; only declare what is specific to that server.
+
+4. **Indentation** — create `ftplugin/<lang>.lua` with the buffer-local
+   settings that language wants. C uses tabs at width 8, Rust and TypeScript
+   use spaces, Lua uses two.
+
+If the language sends semantic tokens the theme does not cover, `:Inspect` on a
+symbol shows exactly which group wins and at what priority.
 
 ### Theme
 
@@ -194,16 +235,19 @@ lua/icvim/
   bufferline.lua            Tabline highlights
 lua/lsp/
   init.lua                  Server list and shared capabilities
-  clangd.lua  lua_ls.lua  ts_ls.lua
+  clangd.lua  rust_analyzer.lua  lua_ls.lua  ts_ls.lua
 lua/plugins/
   init.lua                  Manual plugin index
   *.lua                     One file per plugin
 ftplugin/
-  c.lua                     Tabs, width 8, cindent
-  lua.lua                   Two spaces
+  c.lua  rust.lua  lua.lua  Per-language buffer settings
+queries/
+  <lang>/*.scm              Tree-sitter highlight queries
+parsers.txt                 Declared grammars
+build-parsers.sh            Builds and installs them
+check-palette.sh            Palette consistency check
 lazy-lock.json              Pinned plugin commits
 cheatsheet.md               Keybinding reference
-check-palette.sh            Palette consistency check
 ```
 
 Plugin keymaps live in `lua/config/keymaps.lua` alongside everything else,
@@ -212,8 +256,8 @@ key do".
 
 ## Status
 
-Actively used, actively changing. Web language highlighting and HTML snippets
-are still pending.
+Actively used, actively changing. HTML and CSS parsers are not declared yet;
+web languages fall back to regex highlighting until they are.
 
 ## License
 

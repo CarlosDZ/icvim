@@ -1,0 +1,12 @@
+# Tree-sitter parsers built from source by build-parsers.sh
+#
+# One per line: <language> <repository> [subdirectory]
+#
+# Neovim ships parsers for c, lua, markdown, vim and query — those are
+# not listed here. Everything else this config highlights is built
+# explicitly, so nothing depends on a plugin managing a hundred grammars.
+#
+# The subdirectory field is for repositories that hold several grammars
+# (tree-sitter-typescript has typescript/ and tsx/, for example).
+
+rust    https://github.com/tree-sitter/tree-sitter-rust

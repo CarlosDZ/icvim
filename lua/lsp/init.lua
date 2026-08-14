@@ -1,6 +1,6 @@
 local M = {}
 
-local servers = { "clangd", "lua_ls", "ts_ls" }
+local servers = { "clangd", "lua_ls", "ts_ls", "rust_analyzer" }
 
 function M.setup()
   local capabilities = require("blink.cmp").get_lsp_capabilities()
